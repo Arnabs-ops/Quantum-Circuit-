@@ -1,8 +1,8 @@
 # Verifiable Quantum Circuit Compilation notebook
 
-[`high_scoring_quantum_circuit_compilation_v5_portfolio.ipynb`](high_scoring_quantum_circuit_compilation_v5_portfolio.ipynb) is the score-10 review candidate. It pins the three public artifact datasets from the supplied 10.864 study, verifies the exact hashes, runs every official full-shot verifier plus four independent DQI salts, enforces the metric's extra format rules, and packages only if the default and worst reviewed-salt scores exceed 10. Its dynamic Kaggle run is still required because those artifact datasets are not available in this workspace. See [`SCORE_10_REVIEW.md`](SCORE_10_REVIEW.md) for the audit and dataset inventory.
+[`high_scoring_quantum_circuit_compilation_v5_portfolio.ipynb`](high_scoring_quantum_circuit_compilation_v5_portfolio.ipynb) is the recommended submission notebook. Its recorded Kaggle review run passed every full-shot verifier and four independent DQI salts, scoring **10.88048** on both the default and worst reviewed salt. It pins the three public artifact datasets by exact hash, enforces the metric's extra format rules, and packages only if the verified score remains above 10. See [`SCORE_10_REVIEW.md`](SCORE_10_REVIEW.md) for the audit and dataset inventory.
 
-[`high_scoring_quantum_circuit_compilation_v4.ipynb`](high_scoring_quantum_circuit_compilation_v4.ipynb) is the recommended Kaggle submission notebook. It combines the 84-qubit inverse-square-root circuit with the public 932-qubit J-fraction DQI decoder and the verified R26 four-address chemistry construction. Their measured public factors project a geometric score near 9.0, subject to the DQI verifier's salted failure sample.
+[`high_scoring_quantum_circuit_compilation_v4.ipynb`](high_scoring_quantum_circuit_compilation_v4.ipynb) is the source-embedded fallback. It combines the 84-qubit inverse-square-root circuit with the public 932-qubit J-fraction DQI decoder and the verified R26 four-address chemistry construction, for a score near 9.0.
 
 Add these Kaggle inputs before selecting **Restart & Run All**:
 

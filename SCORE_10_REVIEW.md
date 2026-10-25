@@ -9,6 +9,11 @@ strongest submission path found so far. Its reported costs produce a geometric
 score of **10.863873**. The arithmetic and its comparison with our verified v4
 are internally consistent.
 
+The hardened v5 notebook subsequently completed on Kaggle in 22.4 minutes. All
+official verifiers and all four DQI salt trials passed. Its measured default and
+worst reviewed-salt score were both **10.88048**. The measured task factors were
+15.039, 23.473 and 3.649.
+
 | Task | v4 verified cost | Portfolio reported cost | Cost improvement | Portfolio factor |
 |---|---:|---:|---:|---:|
 | invsqrt | 155,756.409 | 138,095.135 | 1.1279× | 15.0387× |
@@ -108,9 +113,9 @@ supplied packager:
 8. refuses to package if either the default or worst reviewed-salt geometric
    score is below 10.
 
-The notebook is statically validated locally. The prebuilt datasets are not
-available in this workspace, so its dynamic review must run on Kaggle before it
-replaces v4 as the recommended submission.
+The notebook is statically validated locally and dynamically validated on
+Kaggle. It replaces v4 as the recommended submission; v4 remains the
+source-embedded fallback.
 
 ## Next review gates
 
