@@ -1,12 +1,14 @@
 # Verifiable Quantum Circuit Compilation notebook
 
-`high_scoring_quantum_circuit_compilation.ipynb` is a Kaggle-ready, source-built submission for all three competition tasks. It retains the validated circuit algorithms from the supplied reference notebook and adds deterministic input discovery, an exhaustive inverse-square-root compiler pass, FeMoCo gauge and batch-size optimization, safe reruns, full official verification, one-minute progress heartbeats, and archive-manifest checks.
+[`high_scoring_quantum_circuit_compilation_v4.ipynb`](high_scoring_quantum_circuit_compilation_v4.ipynb) is the recommended Kaggle submission notebook. It combines the 84-qubit inverse-square-root circuit with the public 932-qubit J-fraction DQI decoder and the verified R26 four-address chemistry construction. Their measured public factors project a geometric score near 9.0, subject to the DQI verifier's salted failure sample.
 
 Add these Kaggle inputs before selecting **Restart & Run All**:
 
 1. The Google Verifiable Quantum Circuit Compilation competition data.
-2. [VQCC FeMoCo public factorization, version 2](https://www.kaggle.com/datasets/dmitriigluzdov/vqcc-femoco-public-factorization/versions/2).
+2. [DF-THC Group Compression Factorization](https://www.kaggle.com/datasets/ahmedberatozer/df-thc-group-compression-factorization), containing `dfthc_group_v2_26_60_30.npz`.
 
-The final artifact is `/kaggle/working/submission.zip`. The recorded v1 source run passed all official verifiers and produced a geometric score of 6.434. This revision searches verifier-approved improvements during the run. DQI and measurement-based lookup tests are salted on the leaderboard, so exact scores can vary slightly.
+Use Kaggle's Python 3.13 CPU image. The notebook runs offline, validates the pinned R26 file by SHA-256, builds every circuit from embedded source, runs all three official verifiers at their full shot counts, checks the submission manifest and CRCs, and writes `/kaggle/working/submission.zip`. Expect about 20 minutes and roughly 10 GB peak RAM.
 
-The notebook runs offline and carries source-level attribution and Apache-2.0 licensing details in its final section.
+[`tools/dfthcsos_estimator.py`](tools/dfthcsos_estimator.py) reproduces the official state-preparation model and the public four-address loader schedule before circuit generation. It reports address width, the 128-qubit loader limit, Q/T totals, and exact quantized factor metrics when a candidate NPZ and the full competition data are available.
+
+The earlier [`high_scoring_quantum_circuit_compilation.ipynb`](high_scoring_quantum_circuit_compilation.ipynb) remains as the fully source-built 6.45-series baseline. [`SCORE_GAP_ANALYSIS.md`](SCORE_GAP_ANALYSIS.md) explains why lower-rank chemistry training and a lower-Toffoli in-place DQI construction are the remaining paths toward double-digit scores.

@@ -190,6 +190,32 @@ lambda lower bound would miss the high-gap branch.
    the public pair. Improvements are still valuable, but they cannot close the
    11.15x product gap by themselves.
 
+## Implementation status
+
+[`high_scoring_quantum_circuit_compilation_v4.ipynb`](high_scoring_quantum_circuit_compilation_v4.ipynb)
+implements steps 1 and 2 as the submission path. It builds Q84/Q932/R26 from
+embedded source, runs all official verifiers at full shot counts, and packages
+only after the extra metric-format checks pass. The local Q932 build reproduced
+932 qubits and 1,424,536 static Toffolis; a fresh 102,400-shot official run had
+zero value and phase failures and a task factor of 16.58075.
+The Q84 circuit also passed all 200,540,928 official shots at cost 155,756.409,
+for a factor of 13.33348. Combining those fresh results with the public verified
+R26 cost projects **8.99281** for that seed.
+
+The estimator now reconstructs omitted R26 vectors, evaluates the exact
+quantized factor metrics before circuit generation, reproduces Q=656 and
+T=31,860, exposes the 512/1024/2048 address cliffs, and can exit early when a
+candidate does not beat a supplied incumbent cost.
+
+The notebook embeds the reviewed block-shear and J-fraction models for the next
+DQI iteration. The block-shear model projects 1,262,247 Toffolis around 936
+qubits, which remains above the 800k target and is not substituted for the
+verified decoder. Chemistry pruning/refitting also remains outside the default
+submission because neither the full FCIDUMP nor a lower-rank trained checkpoint
+is embedded in this repository. These projected paths stay separate from the
+verified submission until they produce circuits and factors that pass the
+authoritative verifiers.
+
 ## Sources reviewed
 
 - Babbush et al., [*Leveraging verifiable structure in quantum circuits to
