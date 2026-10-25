@@ -1,5 +1,7 @@
 # Verifiable Quantum Circuit Compilation notebook
 
+[`high_scoring_quantum_circuit_compilation_v6_offset_refit.ipynb`](high_scoring_quantum_circuit_compilation_v6_offset_refit.ipynb) is the next experimental revision. It starts from the verified v5 artifacts, performs a bounded fixed-word chemistry offset refit with an analytic gradient, selects candidates only through the official exact metrics, and falls back to the v5 factorization when no accepted improvement exists. Run v6 before submitting it; its numerical gain depends on the attached R26 checkpoint.
+
 [`high_scoring_quantum_circuit_compilation_v5_portfolio.ipynb`](high_scoring_quantum_circuit_compilation_v5_portfolio.ipynb) is the recommended submission notebook. Its recorded Kaggle review run passed every full-shot verifier and four independent DQI salts, scoring **10.88048** on both the default and worst reviewed salt. It pins the three public artifact datasets by exact hash, enforces the metric's extra format rules, and packages only if the verified score remains above 10. See [`SCORE_10_REVIEW.md`](SCORE_10_REVIEW.md) for the audit and dataset inventory.
 
 [`high_scoring_quantum_circuit_compilation_v4.ipynb`](high_scoring_quantum_circuit_compilation_v4.ipynb) is the source-embedded fallback. It combines the 84-qubit inverse-square-root circuit with the public 932-qubit J-fraction DQI decoder and the verified R26 four-address chemistry construction, for a score near 9.0.

@@ -119,3 +119,21 @@ Each checkpoint should store continuous factors, quantized words, exact metrics,
 estimator Q/T/cost, optimizer seed and parent checkpoint. Only candidates that
 pass the numerical verifier should proceed to circuit generation and full-shot
 verification.
+
+## Implemented v6 experiment
+
+`high_scoring_quantum_circuit_compilation_v6_offset_refit.ipynb` implements the
+safe optimization available without the missing circuit generators. It keeps
+all R26 words and circuits fixed and optimizes only the submitted `H2_I`
+offsets. The objective has an analytic gradient through the eigenvalue and LCU
+expressions; a finite-difference regression matches it within `2.5e-9`.
+
+Four bounded trust regions are searched. Every result is re-evaluated by the
+official exact metric, and only an accepted lower-`lambda_eff` candidate
+replaces the v5 NPZ. The notebook then reruns the complete full-shot portfolio
+review and retains v5 automatically when the refit does not improve it.
+
+This implements a real chemistry change that can be validated with the current
+public artifacts. The 808k DQI and block-16 QROAM targets remain generator and
+training problems; compiled artifact bytes alone do not provide a safe route to
+those structural changes.
