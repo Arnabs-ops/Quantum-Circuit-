@@ -1,6 +1,6 @@
-# Optimization plan after the 10.88048 portfolio
+# Optimization plan after the 10.88057 portfolio
 
-Date: 2026-10-25
+Date: 2026-10-26
 
 ## Current measured point
 
@@ -133,7 +133,35 @@ official exact metric, and only an accepted lower-`lambda_eff` candidate
 replaces the v5 NPZ. The notebook then reruns the complete full-shot portfolio
 review and retains v5 automatically when the refit does not improve it.
 
-This implements a real chemistry change that can be validated with the current
-public artifacts. The 808k DQI and block-16 QROAM targets remain generator and
-training problems; compiled artifact bytes alone do not provide a safe route to
-those structural changes.
+The Kaggle run scored **10.88057**, only 0.00009 above v5. This is useful
+negative evidence: the fixed-word offset direction is exhausted and cannot
+reach score 11.
+
+## Implemented v7 structural search
+
+`high_scoring_quantum_circuit_compilation_v7_qroam_search.ipynb` now implements
+the chemistry training experiment rather than leaving it as a recommendation.
+It attaches the official starter kit, starts from the exact verified R26
+checkpoint and searches two progressive branches:
+
+- basis reduction `B=56 -> 52 -> 49 -> 46` at `R=26,C=30`;
+- group reduction `R=24 -> 22 -> 20` at `B=60,C=30`.
+
+The full preset continues to `(19,49,24)` and `(12,36,20)`. At the incumbent
+lambda, the reviewed public four-address loader projects `(26,49,30)` to a
+chemistry factor of 3.79 and an overall score near 11.02; `(26,46,30)` projects
+near 11.15. These smaller steps provide useful checkpoints before asking the
+optimizer to cross the much harder block-16 cliff.
+
+For every shape, v7 contribution-ranks the retained coordinates, runs an
+accuracy phase and a lambda phase, encodes ten-bit words, freezes the decoded
+vectors for a final `W/H2_I` refit, and applies the bounded offset refit. It
+then calls the official exact metric. Only numerical passes are compiled, and
+only an exact resource cost below the incumbent can replace it. The final
+selection receives the complete three-task full-shot review and ZIP checks.
+
+The loader was also tested locally on a random 1,350-row R26/B49-sized table.
+All 25 circuits stayed at 128 qubits, recovered every legal word exactly with
+the official simulator, and reported 22,350 ANGLE Toffolis over both passes.
+This specifically validates padding for candidate row counts that are not
+divisible by four.
